@@ -25,9 +25,32 @@ home_dir="$HOME"
 arg="$1"
 arg1="$2"
 
+sudo apt-get update
+INSTALL_PKGS=" libopus0 libexpat1 libasound2 libudev0 or libudev1 libavahi-client3 libcurl3 libevdev2 libenet7 rbp-userland-osmc libraspberrypi0 libssl-dev libopus-dev libasound2-dev libudev-dev libavahi-client-dev libcurl4-openssl-dev libevdev-dev libexpat1-dev libpulse-dev uuid-dev libenet-dev cmake gcc g++ libraspberrypi-dev fakeroot debhelper "
+for i in $INSTALL_PKGS; do
+sudo apt-get install -y $i
+done
+
+git clone https://github.com/irtimmer/moonlight-embedded.git
+
+cd moonlight-embedded
+
+git submodule update --init --recursive
+
+mkdir build
+
+cd build/
+
+cmake ../
+make
+
+sudo make install
+
+sudo ldconfig
+
 # add sources for moonlight
 function add_sources {
-	# $1 = stretch
+	# $1 = jessie or stretch
 	if grep -q "deb http://archive.itimmer.nl/raspbian/moonlight "$1" main" /etc/apt/sources.list; then
 		echo -e "NOTE: Moonlight Source Exists - Skipping"
 	else
@@ -61,7 +84,6 @@ function update_and_install_moonlight {
 	# $1 -u to update and install and -i to just install moonlight
 	case "$1" in
 		-u) sudo apt-get update -y ;;
-		-i) sudo apt-get install moonlight-embedded -y  ;;
 		*) echo -e "Invalid"; return 1;;
 	esac
 }
