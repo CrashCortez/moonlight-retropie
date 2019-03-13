@@ -27,7 +27,7 @@ arg1="$2"
 
 # add sources for moonlight
 function add_sources {
-	# $1 = jessie or stretch
+	# $1 = stretch
 	if grep -q "deb http://archive.itimmer.nl/raspbian/moonlight "$1" main" /etc/apt/sources.list; then
 		echo -e "NOTE: Moonlight Source Exists - Skipping"
 	else
