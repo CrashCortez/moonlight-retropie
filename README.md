@@ -2,6 +2,7 @@
 
 ## What is new
 
+- Now builds from master.
 - Now you don't need to be root to run this script (still need to provide your password!)
 - Refactored the code, now it's a little bit easier to maintain since it's function based
 - The script can be run from anywhere in the system now, not only $HOME!
@@ -23,7 +24,7 @@
 - Controller mapping (it's not a priority, since most controllers work out-of-the-box)
 
 
-# --------- ORIGINAL TECHWIZTIME README ---------
+# --------- ORIGINAL-ISH TECHWIZTIME README ---------
 
 # moonlight-retropie
 The Install &amp; Setup Script for Moonlight within RetroPie 4.2+ from **TechWizTime**
@@ -40,7 +41,7 @@ This script currently will do the following:
 ## How to use this
 In RetroPie, go to the Command Line and type the following to download the script:
 ```
-wget https://raw.githubusercontent.com/TechWizTime/moonlight-retropie/master/moonlight.sh
+wget https://raw.githubusercontent.com/jacobmix/moonlight-retropie/master/moonlight.sh
 ```
 ```
 sudo chmod +x moonlight.sh
@@ -53,13 +54,9 @@ sudo ./moonlight.sh
 ## If you get a TLS or SSL Error
 Sometimes, this can happen when trying to wget the script above. If it does, try this wget command instead
 ```
-wget https://raw.githubusercontent.com/TechWizTime/moonlight-retropie/master/moonlight.sh  --no-check
+wget https://raw.githubusercontent.com/jacobmix/moonlight-retropie/master/moonlight.sh  --no-check
 ```
 
-And if you are feeling particulary lazy, here's a shortlink via my website
-```
-wget https://techwiztime.com/moonlight.sh  --no-check
-```
 ## Acknowledgements
 @etgrieco - Thanks for fixing the script when the mapping broke!
 
