@@ -25,6 +25,22 @@ home_dir="$HOME"
 arg="$1"
 arg1="$2"
 
+# add sources for moonlight
+function add_sources {
+	# $1 = jessie or stretch
+	if grep -q "deb http://archive.itimmer.nl/raspbian/moonlight "$1" main" /etc/apt/sources.list; then
+		echo -e "NOTE: Moonlight Source Exists - Skipping"
+	else
+		echo -e "Adding Moonlight to Sources List"
+		echo "deb http://archive.itimmer.nl/raspbian/moonlight "$1" main" >> /etc/apt/sources.list
+	fi
+}
+
+# remove old moonlight and build from master
+function build_master {
+sudo apt-get remove moonlight-embedded
+sudo rm -r moonlight-emmbedded
+
 sudo apt-get update
 INSTALL_PKGS=" libopus0 libexpat1 libasound2 libudev0 or libudev1 libavahi-client3 libcurl3 libevdev2 libenet7 rbp-userland-osmc libraspberrypi0 libssl-dev libopus-dev libasound2-dev libudev-dev libavahi-client-dev libcurl4-openssl-dev libevdev-dev libexpat1-dev libpulse-dev uuid-dev libenet-dev cmake gcc g++ libraspberrypi-dev fakeroot debhelper "
 for i in $INSTALL_PKGS; do
@@ -47,16 +63,6 @@ make
 sudo make install
 
 sudo ldconfig
-
-# add sources for moonlight
-function add_sources {
-	# $1 = jessie or stretch
-	if grep -q "deb http://archive.itimmer.nl/raspbian/moonlight "$1" main" /etc/apt/sources.list; then
-		echo -e "NOTE: Moonlight Source Exists - Skipping"
-	else
-		echo -e "Adding Moonlight to Sources List"
-		echo "deb http://archive.itimmer.nl/raspbian/moonlight "$1" main" >> /etc/apt/sources.list
-	fi
 }
 
 # fetch and install gpg keys
@@ -79,11 +85,11 @@ function install_gpg_keys {
 	rm ./itimmer.gpg
 }
 
-# update system and install moonlight
-function update_and_install_moonlight {
-	# $1 -u to update and install and -i to just install moonlight
+# update system and rebuild moonlight
+function update_and_rebuild_moonlight {
+	# $1 -u to update and rebuild moonlight
 	case "$1" in
-		-u) sudo apt-get update -y ;;
+		-u) build_master ;;
 		*) echo -e "Invalid"; return 1;;
 	esac
 }
@@ -305,7 +311,7 @@ function update_script {
 	fi
 
 	#wget https://techwiztime.com/moonlight.sh --no-check
-	wget https://raw.githubusercontent.com/Klubas/moonlight-retropie/master/moonlight.sh --no-check
+	wget https://raw.githubusercontent.com/jacobmix/moonlight-retropie/master/moonlight.sh --no-check
 	if [ ! -x ./moonlight ]; then
 		echo "Making it executable"
 		sudo chmod +x "$wd"/moonlight.sh
@@ -339,10 +345,10 @@ function config_menu {
 #you can call the script passing one of the menu options as the first arg
 if [ $# -eq 0 ]; then
 	echo -e "\n****************************************************************"
-	echo -e "Welcome to the Moonlight Installer Script for RetroPie v17.10.07"
+	echo -e "Welcome to the Moonlight Installer Script for RetroPie v18.00.01"
 	echo -e "****************************************************************\n"
 	echo -e "Select an option:"
-	echo -e " * 1: Install Moonlight, Pair, Install Scripts, Install Menus"
+	echo -e " * 1: Build Moonlight from master, Pair, Install Scripts, Install Menus"
 	echo -e " * 2: Install Launch Scripts"
 	echo -e " * 3: Remove Launch Scripts"
 	echo -e " * 4: Re Pair Moonlight with PC"
@@ -360,18 +366,9 @@ fi
 
 case "$NUM" in
 	1)
-		echo -e "\nAdd Moonlight to Sources List"
-		echo -e "****************************************\n"
-		add_sources stretch
-
-		echo -e "\nFetch and install the GPG key"
-		echo -e "****************************************\n"
-		install_gpg_keys -f
-
 		echo -e "\nUpdate System and install moonlight"
 		echo -e "**************************\n"
-		update_and_install_moonlight -u
-		update_and_install_moonlight -i
+		update_and_rebuild_moonlight -u
 
 		echo -e "\nPair Moonlight with PC"
 		echo -e "**********************************\n"
