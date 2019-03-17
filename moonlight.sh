@@ -38,28 +38,34 @@ function add_sources {
 
 # remove old moonlight and build from master
 function build_master {
+echo -e "Removing old moonlights"
 sudo apt-get remove moonlight-embedded
 sudo rm -r moonlight-emmbedded
 
+echo -e "updating system, and pakages"
 sudo apt-get update
 INSTALL_PKGS=" libopus0 libexpat1 libasound2 libudev0 or libudev1 libavahi-client3 libcurl3 libevdev2 libenet7 rbp-userland-osmc libraspberrypi0 libssl-dev libopus-dev libasound2-dev libudev-dev libavahi-client-dev libcurl4-openssl-dev libevdev-dev libexpat1-dev libpulse-dev uuid-dev libenet-dev cmake gcc g++ libraspberrypi-dev fakeroot debhelper "
 for i in $INSTALL_PKGS; do
 sudo apt-get install -y $i
 done
 
+echo -e "cloning Moonlight repository"
 git clone https://github.com/irtimmer/moonlight-embedded.git
 
 cd moonlight-embedded
 
+echo -e "Getting submodules"
 git submodule update --init --recursive
 
 mkdir build
 
 cd build/
 
+echo -e "Building Moonlight"
 cmake ../
 make
 
+echo -e "Installing Moonlight"
 sudo make install
 
 sudo ldconfig
