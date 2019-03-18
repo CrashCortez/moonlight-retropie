@@ -16,7 +16,7 @@
     
 - Created a (crude) command line interface. Now you can pass a number as an argument for this script
 - Now there's some what of a error handling, so if something happens along the way you'll actually see it
-- ~~It'll use the debian strech repo, so no more libssl1.0 errors when installing (need to test this in a new system)~~
+- ~~It'll use the debian strech repo, so no more libssl1.0 errors when installing (need to test this in a new system)~~  
 Now builds from master.
 
 # To-Do
