@@ -68,6 +68,7 @@ make
 echo -e "Installing Moonlight"
 sudo make install
 
+echo -e "Creating the necessary links and cache"
 sudo ldconfig
 }
 
