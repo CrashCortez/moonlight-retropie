@@ -37,17 +37,23 @@ function add_sources {
 }
 
 # remove old moonlight and build from master
-function build_master {
+function remove_moonlight {
 echo -e "Removing old moonlights"
 sudo apt-get remove moonlight-embedded
 if [ -d "moonlight-embedded" ]; then rm -Rf moonlight-embedded; fi
+}
 
+# update system and pakeges
+function update_system_and_pakages {
 echo -e "updating system, and pakages"
 sudo apt-get update
 INSTALL_PKGS=" libopus0 libexpat1 libasound2 libudev0 or libudev1 libavahi-client3 libcurl3 libevdev2 libenet7 rbp-userland-osmc libraspberrypi0 libssl-dev libopus-dev libasound2-dev libudev-dev libavahi-client-dev libcurl4-openssl-dev libevdev-dev libexpat1-dev libpulse-dev uuid-dev libenet-dev cmake gcc g++ libraspberrypi-dev fakeroot debhelper "
 for i in $INSTALL_PKGS; do
 sudo apt-get install -y $i
+}
 
+# build moonlight from master
+function build_moonlight_from_master {
 echo -e "cloning Moonlight repository"
 git clone https://github.com/irtimmer/moonlight-embedded.git
 
@@ -95,7 +101,7 @@ function install_gpg_keys {
 function update_and_rebuild_moonlight {
 	# $1 -u to update and rebuild moonlight
 	case "$1" in
-		-u) build_master ;;
+		-u) Remove Moonlight ;;
 		*) echo -e "Invalid"; return 1;;
 	esac
 }
@@ -374,7 +380,9 @@ case "$NUM" in
 	1)
 		echo -e "\nUpdate System and install moonlight"
 		echo -e "**************************\n"
-		update_and_rebuild_moonlight -u
+		remove_moonlight
+		update_system_and_pakages
+		build_moonlight_from_master
 
 		echo -e "\nPair Moonlight with PC"
 		echo -e "**********************************\n"
