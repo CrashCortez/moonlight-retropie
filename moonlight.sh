@@ -38,43 +38,44 @@ function add_sources {
 
 # remove old moonlight and build from master
 function remove_moonlight {
-echo -e "Removing old moonlights"
-sudo apt-get remove moonlight-embedded
-if [ -d "moonlight-embedded" ]; then rm -Rf moonlight-embedded; fi
+	echo -e "Removing old moonlights"
+	sudo apt-get remove moonlight-embedded
+	if [ -d "moonlight-embedded" ]; then rm -Rf moonlight-embedded; fi
 }
 
 # update system and pakeges
 function update_system_and_pakages {
-echo -e "updating system, and pakages"
-sudo apt-get update
-INSTALL_PKGS=" libopus0 libexpat1 libasound2 libudev0 or libudev1 libavahi-client3 libcurl3 libevdev2 libenet7 rbp-userland-osmc libraspberrypi0 libssl-dev libopus-dev libasound2-dev libudev-dev libavahi-client-dev libcurl4-openssl-dev libevdev-dev libexpat1-dev libpulse-dev uuid-dev libenet-dev cmake gcc g++ libraspberrypi-dev fakeroot debhelper "
-for i in $INSTALL_PKGS; do
-sudo apt-get install -y $i
+	echo -e "updating system, and pakages"
+	sudo apt-get update
+	INSTALL_PKGS=" libopus0 libexpat1 libasound2 libudev0 or libudev1 libavahi-client3 libcurl3 libevdev2 libenet7 rbp-userland-osmc libraspberrypi0 libssl-dev libopus-dev libasound2-dev libudev-dev libavahi-client-dev libcurl4-openssl-dev libevdev-dev libexpat1-dev libpulse-dev uuid-dev libenet-dev cmake gcc g++ libraspberrypi-dev fakeroot debhelper "
+	for i in $INSTALL_PKGS; do
+	sudo apt-get install -y $i
+done
 }
 
 # build moonlight from master
 function build_moonlight_from_master {
-echo -e "cloning Moonlight repository"
-git clone https://github.com/irtimmer/moonlight-embedded.git
+	echo -e "cloning Moonlight repository"
+	git clone https://github.com/irtimmer/moonlight-embedded.git
 
-cd moonlight-embedded
+	cd moonlight-embedded
 
-echo -e "Getting submodules"
-git submodule update --init --recursive
+	echo -e "Getting submodules"
+	git submodule update --init --recursive
 
-mkdir build
+	mkdir build
 
-cd build/
+	cd build/
 
-echo -e "Building Moonlight"
-cmake ../
-make
+	echo -e "Building Moonlight"
+	cmake ../
+	make
 
-echo -e "Installing Moonlight"
-sudo make install
+	echo -e "Installing Moonlight"
+	sudo make install
 
-echo -e "Creating the necessary links and cache"
-sudo ldconfig
+	echo -e "Creating the necessary links and cache"
+	sudo ldconfig
 }
 
 # fetch and install gpg keys
