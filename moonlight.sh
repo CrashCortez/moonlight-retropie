@@ -40,11 +40,13 @@ function add_sources {
 function remove_moonlight {
 	echo -e "Removing old moonlights"
 	sudo apt-get remove moonlight-embedded
-	if [ -d "moonlight-embedded" ]; then rm -Rf moonlight-embedded; fi
+	if
+		[ -d "moonlight-embedded" ]; then rm -Rf moonlight-embedded;
+	fi
 }
 
 # update system and pakeges
-function update_system_and_pakages {
+function update_pakages {
 	echo -e "updating system, and pakages"
 	sudo apt-get update
 	INSTALL_PKGS=" libopus0 libexpat1 libasound2 libudev0 or libudev1 libavahi-client3 libcurl3 libevdev2 libenet7 rbp-userland-osmc libraspberrypi0 libssl-dev libopus-dev libasound2-dev libudev-dev libavahi-client-dev libcurl4-openssl-dev libevdev-dev libexpat1-dev libpulse-dev uuid-dev libenet-dev cmake gcc g++ libraspberrypi-dev fakeroot debhelper "
@@ -381,7 +383,7 @@ case "$NUM" in
 		echo -e "\nUpdate System and install moonlight"
 		echo -e "**************************\n"
 		remove_moonlight
-		update_system_and_pakages
+		update_pakages
 		build_moonlight_from_master
 
 		echo -e "\nPair Moonlight with PC"
