@@ -39,7 +39,7 @@ function add_sources {
 # remove old moonlight and build from master
 function remove_moonlight {
 	echo -e "Removing old moonlights"
-	sudo apt-get remove moonlight-embedded
+	sudo apt-get --purge remove moonlight-embedded
 	if
 		[ -d "moonlight-embedded" ]; then rm -Rf moonlight-embedded;
 	fi
