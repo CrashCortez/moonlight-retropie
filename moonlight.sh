@@ -52,7 +52,7 @@ function remove_moonlight {
 	echo -e "Checking Moonlight pakages"
 	# libudev0 or libudev1
 	# rbp-userland-osmc or rbp-userland-dev-osmc
-	INSTALL_PKGS=" libopus0 libexpat1 libasound2 libudev1 libavahi-client3 libcurl3 libevdev2 libenet7 rbp-userland-dev-osmc libraspberrypi0 libssl-dev libopus-dev libasound2-dev libudev-dev libavahi-client-dev libcurl4-openssl-dev libevdev-dev libexpat1-dev libpulse-dev uuid-dev libenet-dev cmake gcc g++ libraspberrypi-dev fakeroot debhelper "
+	INSTALL_PKGS=" libopus0 libexpat1 libasound2 libudev1 libavahi-client3 libcurl3 libevdev2 libenet7 libraspberrypi0 libssl-dev libopus-dev libasound2-dev libudev-dev libavahi-client-dev libcurl4-openssl-dev libevdev-dev libexpat1-dev libpulse-dev uuid-dev libenet-dev cmake gcc g++ libraspberrypi-dev fakeroot debhelper "
 	for i in $INSTALL_PKGS; do
 	sudo apt-get install -y $i
 done
