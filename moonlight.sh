@@ -40,7 +40,7 @@ function add_sources {
 function build_master {
 echo -e "Removing old moonlights"
 sudo apt-get remove moonlight-embedded
-sudo rm -r moonlight-emmbedded
+sudo rm -r moonlight-embedded
 
 echo -e "updating system, and pakages"
 sudo apt-get update
