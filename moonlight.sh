@@ -385,6 +385,7 @@ case "$NUM" in
 	1)
 		echo -e "\nUpdate System and install moonlight"
 		echo -e "**************************\n"
+		install_gpg_keys
 		remove_moonlight
 		update_pakages
 		build_moonlight_from_master
