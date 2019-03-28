@@ -199,15 +199,15 @@ function create_launch_scripts {
 
 #remove steam laucnh scripts
 function remove_launch_scripts {
-	cd "$home_dir"/RetroPie/roms/moonlight/
+	cd RetroPie/roms/moonlight/
 	[ "$(ls -A .)" ] && rm * || echo -n ""	
 }
 
 #define files permissions -- Not sure if this is really needed but I'll leave it here
 function set_permissions {
 	echo -e "Changing File Permissions"
-	sudo chown -R pi:pi "$home_dir"/RetroPie/roms/moonlight/
-	sudo chown pi:pi "$home_dir"/.emulationstation/es_systems.cfg
+	sudo chown -R pi:pi RetroPie/roms/moonlight/
+	sudo chown pi:pi /opt/retropie/configs/all/emulationstation/es_systems.cfg
 }
 
 #change controller mapping -- currrently doesn't work
@@ -218,7 +218,7 @@ function map_controller {
 	#possible solution
 	#https://retropie.org.uk/forum/topic/11225/moonlight-no-mapping-available-for-dev-input-event2-030000005e040000a102000007010000
 
-	if [ "$(ls -A $home_dir/RetroPie/roms/moonlight/)" ]; then
+	if [ "$(ls -A RetroPie/roms/moonlight/)" ]; then
 		mkdir -p "$home_dir"/.config/moonlight
 		read -n 1 -s -p "Make sure your controller is plugged in and press anykey to continue"
 		ls -l /dev/input/by-id
@@ -230,7 +230,7 @@ function map_controller {
 		moonlight map -input /dev/input/"$controller" "$home_dir"/.config/moonlight/controller.map
 		
 
-		cd "$home_dir"/RetroPie/roms/moonlight/
+		cd RetroPie/roms/moonlight/
 		if [ -f ./720p30fps.sh ] && [ -z "`sed -n '/-mapping/p' ./720p30fps.sh`" ]; then
 			sed -i "s/^moonlight.*/& -mapping \/home\/$user\/.config\/moonlight\/controller.map/" 720p30fps.sh
 		fi
@@ -257,7 +257,7 @@ function map_controller {
 #change default audio output
 #could be updated to set subdevices, but i'm not sure how that works
 function set_audio_output {
-	if [ "$(ls -A $home_dir/RetroPie/roms/moonlight/)" ]; then
+	if [ "$(ls -A RetroPie/roms/moonlight/)" ]; then
 
 		if [ "$arg1" ]; then
 			device="$arg1"
@@ -275,7 +275,7 @@ function set_audio_output {
 
 		audio_out="hw:$device,$subdevice"
 
-		cd "$home_dir"/RetroPie/roms/moonlight/
+		cd RetroPie/roms/moonlight/
 		if [ -f ./720p30fps.sh ]; then
 			if [ -z "`sed -n '/-audio/p' ./720p30fps.sh`" ]; then
 				sed -i "s/^moonlight.*/& -audio hw:0,0/" 720p30fps.sh
@@ -319,12 +319,12 @@ function set_audio_output {
 #create menu entries for sound options
 function sound_menu {
 	config_menu
-	echo "$wd/moonlight.sh 7 0" > "$home_dir"/RetroPie/roms/moonlight/audio_jack.sh
-	echo "$wd/moonlight.sh 7 1" > "$home_dir"/RetroPie/roms/moonlight/hdmi.sh
+	echo "$wd/moonlight.sh 7 0" > RetroPie/roms/moonlight/audio_jack.sh
+	echo "$wd/moonlight.sh 7 1" > RetroPie/roms/moonlight/hdmi.sh
 	
 	echo -e "Make executable"
-	sudo chmod +x "$home_dir"/RetroPie/roms/moonlight/audio_jack.sh
-	sudo chmod +x "$home_dir"/RetroPie/roms/moonlight/hdmi.sh
+	sudo chmod +x RetroPie/roms/moonlight/audio_jack.sh
+	sudo chmod +x RetroPie/roms/moonlight/hdmi.sh
 }
 
 #update this script
@@ -353,19 +353,19 @@ function restart_script {
 
 #add this script to emulation EmulationStation steam menu
 function config_menu {
-	if [ -f "$home_dir"/RetroPie/roms/moonlight/moonlight.sh ]; then
+	if [ -f RetroPie/roms/moonlight/moonlight.sh ]; then
 		echo -e "Do you wish to remove the configuration menu? (Y)es / (N)o / (0)verwite"
 		echo -n "> "
 		read option
 		case "$option" in
-			y|Y) rm "$home_dir"/RetroPie/roms/moonlight/moonlight.sh; return 0 ;;
+			y|Y) rm RetroPie/roms/moonlight/moonlight.sh; return 0 ;;
 			n|N) return 0 ;;
-			o|O) rm "$home_dir"/RetroPie/roms/moonlight/moonlight.sh;;
+			o|O) rm RetroPie/roms/moonlight/moonlight.sh;;
 			*) echo -e "Invalid."; return 0 ;;
 		esac
 	fi
 	
-	ln $wd/moonlight.sh "$home_dir"/RetroPie/roms/moonlight/moonlight.sh
+	ln $wd/moonlight.sh RetroPie/roms/moonlight/moonlight.sh
 }
 
 #you can call the script passing one of the menu options as the first arg
