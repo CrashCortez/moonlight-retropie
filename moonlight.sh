@@ -47,6 +47,11 @@ function remove_moonlight {
 
 # update system and pakeges
 	function update_pakages {
+	echo -e "Cleaning, and removing old unused packages"
+	apt-get clean
+	apt-get autoremove
+	sudo apt-get -f install
+	dpkg --configure -a
 	echo -e "updating system, and pakages"
 	sudo apt-get update
 	echo -e "Checking Moonlight pakages"
@@ -389,6 +394,7 @@ case "$NUM" in
 	1)
 		echo -e "\nUpdate System and install moonlight"
 		echo -e "**************************\n"
+		add_sources
 		install_gpg_keys
 		remove_moonlight
 		update_pakages
