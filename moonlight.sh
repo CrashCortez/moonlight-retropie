@@ -130,34 +130,34 @@ function pair_moonlight {
 
 #create steam menu
 function create_menu {
-	if [ -f "$home_dir"/.emulationstation/es_systems.cfg ]
+	if [ -f /opt/retropie/configs/all/emulationstation/es_systems.cfg ]
 	then
 		echo -e "Removing Duplicate Systems File"
-		rm "$home_dir"/.emulationstation/es_systems.cfg
+		rm /opt/retropie/configs/all/emulationstation/es_systems.cfg
 	fi
 
 	echo -e "Copying Systems Config File"
-	cp /etc/emulationstation/es_systems.cfg "$home_dir"/.emulationstation/es_systems.cfg
+	cp /etc/emulationstation/es_systems.cfg /opt/retropie/configs/all/emulationstation/es_systems.cfg
 
-	if grep -q "<platform>steam</platform>" "$home_dir"/.emulationstation/es_systems.cfg; then
+	if grep -q "<platform>steam</platform>" /opt/retropie/configs/all/emulationstation/es_systems.cfg; then
 		echo -e "NOTE: Steam Entry Exists - Skipping"
 	else
 		echo -e "Adding Steam to Systems"
-		sed -i -e 's|</systemList>|  <system>\n    <name>steam</name>\n    <fullname>Steam</fullname>\n    <path>~/RetroPie/roms/moonlight</path>\n    <extension>.sh .SH</extension>\n    <command>bash %ROM%</command>\n    <platform>steam</platform>\n    <theme>steam</theme>\n  </system>\n</systemList>|g' "$home_dir"/.emulationstation/es_systems.cfg
+		sed -i -e 's|</systemList>|  <system>\n    <name>steam</name>\n    <fullname>Steam</fullname>\n    <path>~/RetroPie/roms/moonlight</path>\n    <extension>.sh .SH</extension>\n    <command>bash %ROM%</command>\n    <platform>steam</platform>\n    <theme>steam</theme>\n  </system>\n</systemList>|g' /opt/retropie/configs/all/emulationstation/es_systems.cfg
 	fi
 }
 
 #add steam launch scripts
 function create_launch_scripts {
 	echo -e "Create Script Folder"
-	mkdir -p "$home_dir"/RetroPie/roms/moonlight
+	mkdir -p RetroPie/roms/moonlight
 
 	if [ "$1" == '-f' ]; then
 		echo -e "NOTE: Removing old scripts"
 		remove_launch_scripts
 	fi
 
-	cd "$home_dir"/RetroPie/roms/moonlight
+	cd RetroPie/roms/moonlight
 
 	echo -e "Create Scripts"
 	if [ -f ./720p30fps.sh ]; then
