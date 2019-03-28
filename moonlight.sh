@@ -211,50 +211,6 @@ function set_permissions {
 }
 
 #change controller mapping -- currrently doesn't work
-function map_controller_old {
-	echo -e "\nWIP\n"
-	return 0
-
-	#possible solution
-	#https://retropie.org.uk/forum/topic/11225/moonlight-no-mapping-available-for-dev-input-event2-030000005e040000a102000007010000
-
-	if [ "$(ls -A RetroPie/roms/moonlight/)" ]; then
-		mkdir -p "$home_dir"/.config/moonlight
-		read -n 1 -s -p "Make sure your controller is plugged in and press anykey to continue"
-		ls -l /dev/input/by-id
-		echo -e "Type the device name (it's probably one of the eventX): "
-		read -p "> " controller
-
-		cp /dev/stdin  myfile.txt
-		touch
-		moonlight map -input /dev/input/"$controller" "$home_dir"/.config/moonlight/controller.map
-		
-
-		cd RetroPie/roms/moonlight/
-		if [ -f ./720p30fps.sh ] && [ -z "`sed -n '/-mapping/p' ./720p30fps.sh`" ]; then
-			sed -i "s/^moonlight.*/& -mapping \/home\/$user\/.config\/moonlight\/controller.map/" 720p30fps.sh
-		fi
-
-		if [ -f ./720p60fps.sh ] && [ -z "`sed -n '/-mapping/p' ./720p60fps.sh`" ]; then
-			sed -i "s/^moonlight.*/& -mapping \/home\/$user\/.config\/moonlight\/controller.map/" 720p60fps.sh
-		fi
-
-		if [ -f ./1080p30fps.sh ] && [ -z "`sed -n '/-mapping/p' ./1080p30fps.sh`" ]; then
-			sed -i "s/^moonlight.*/& -mapping \/home\/$user\/.config\/moonlight\/controller.map/" 1080p30fps.sh
-		fi
-
-		if [ -f ./1080p60fps.sh ] && [ -z "`sed -n '/-mapping/p' ./1080p60fps.sh`" ]; then
-			sed -i "s/^moonlight.*/& -mapping \/home\/$user\/.config\/moonlight\/controller.map/" 1080p60fps.sh
-		fi
-
-		cd "$wd"
-	else 
-		echo -e "You need to generate your launch scripts first."
-		return 0
-	fi
-}
-
-#change controller mapping -- currrently doesn't work
 function map_controller {
 	echo -e "\nWIP\n"
 	return 0
@@ -273,7 +229,7 @@ function map_controller {
 
 		sudo moonlight map -input /dev/input/"$controller"
 		# 2>&1 | tee /home/pi/RetroPie/roms/moonlight/NewControllerMap.txt
-		#Get controller id, and mapping. Check if controller is in gamecontrollerdb.txt if so ask to overide else ask to add new.
+		#Get controller id, and mapping. Check if the controller is in gamecontrollerdb.txt and if so ask to override else ask to add new.
 
 		fi
 
