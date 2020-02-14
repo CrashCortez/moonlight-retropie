@@ -46,5 +46,5 @@ If you use this script in a YouTube video, please give my channel a shout out an
 
 If this script helped you out and you want to see more scripts like this (for other Raspberry Pi related things), then please subscribe to my YouTube channel or follow me on one of my Social Media platforms below.
 
-| [YouTube](https://www.youtube.com/TechWizTime) | [Facebook](https://www.facebook.com/TechWizTime) | [Instagram](https://www.instagram.com/TechWizTime) | [Twitter](https://www.twitter.com/TechWizTime) |
-| --- | --- | --- | --- |
+| [YouTube](https://www.youtube.com/channel/UCwnTzGTRsNpen-2Nz38yGAQ) | [Facebook](https://www.facebook.com/crash.cortez.75) | [Twitter](https://twitter.com/CrashGaming14) |
+| --- | --- | --- |
